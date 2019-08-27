@@ -9,6 +9,7 @@
 
 class UButton;
 class UWidgetSwitcher;
+class UEditableTextBox;
 
 UCLASS()
 class PUZZLEPLATFORMS_API UMainMenu : public UUserWidget
@@ -34,7 +35,13 @@ protected:
 	UButton* JoinButton;
 
 	UPROPERTY(meta = (BindWidget))
+	UButton* OpenJoinMenuButton;
+	
+	UPROPERTY(meta = (BindWidget))
 	UButton* CancelJoinMenuButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UEditableTextBox* IPAddressField;
 
 	UPROPERTY(meta = (BindWidget))
 	UWidgetSwitcher* MenuSwitcher;
@@ -48,6 +55,9 @@ protected:
 private:
 	UFUNCTION()
 	void HostServer();
+
+	UFUNCTION()
+	void JoinServer();
 
 	UFUNCTION()
 	void OpenMainMenu();
