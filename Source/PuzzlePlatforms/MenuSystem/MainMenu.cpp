@@ -35,7 +35,7 @@ void UMainMenu::Setup()
 	PlayerController->SetInputMode(InputModeData);
 	PlayerController->bShowMouseCursor = true;
 }
-
+/*
 void UMainMenu::OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld)
 {
 	Super::OnLevelRemovedFromWorld(InLevel, InWorld);
@@ -48,7 +48,7 @@ void UMainMenu::OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld)
 	PlayerController->SetInputMode(InputModeData);
 	PlayerController->bShowMouseCursor = false;
 }
-/*
+*/
 void UMainMenu::TearDown()
 {
 	RemoveFromViewport();
@@ -62,7 +62,7 @@ void UMainMenu::TearDown()
 	PlayerController->SetInputMode(InputModeData);
 	PlayerController->bShowMouseCursor = false;
 }
-*/
+
 void UMainMenu::HostServer()
 {
 	if (MenuInterface != nullptr)

@@ -33,12 +33,11 @@ void UPuzzlePlatformsGameInstance::LoadMenu()
 
 void UPuzzlePlatformsGameInstance::Host()
 {
-	/*
 	if (Menu != nullptr)
 	{
 		Menu->TearDown();
 	}
-	*/
+
 	UEngine* Engine = GetEngine();
 	if (!ensure(Engine != nullptr)) { return; }
 	Engine->AddOnScreenDebugMessage(0, 5, FColor::Green, TEXT("Hosting"));

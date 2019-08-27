@@ -19,9 +19,9 @@ public:
 
 	void Setup();
 	
-	virtual void OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld) override;
+	//virtual void OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld) override;
 
-	//void TearDown();
+	void TearDown();
 
 protected:
 	virtual bool Initialize() override;
