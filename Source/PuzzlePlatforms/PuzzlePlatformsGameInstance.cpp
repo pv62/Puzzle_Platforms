@@ -4,6 +4,7 @@
 #include "PuzzlePlatformsGameInstance.h"
 #include "PlatformTrigger.h"
 #include "MenuSystem/MainMenu.h"
+#include "MenuSystem/InGameMenu.h"
 
 #include "Engine/Engine.h"
 #include "UObject/ConstructorHelpers.h"
@@ -11,31 +12,46 @@
 
 UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitializer& ObjectInitializer)
 {
-	ConstructorHelpers::FClassFinder<UUserWidget> MenuBPClass(TEXT("/Game/MenuSystem/WBP_MainMenu"));
-	if (!ensure(MenuBPClass.Class != nullptr)) { return; }
-	MenuClass = MenuBPClass.Class;
+	ConstructorHelpers::FClassFinder<UUserWidget> MainMenuBPClass(TEXT("/Game/MenuSystem/WBP_MainMenu"));
+	if (!ensure(MainMenuBPClass.Class != nullptr)) { return; }
+	MainMenuClass = MainMenuBPClass.Class;
+
+	ConstructorHelpers::FClassFinder<UUserWidget> InGameMenuBPClass(TEXT("/Game/MenuSystem/WBP_InGameMenu"));
+	if (!ensure(InGameMenuBPClass.Class != nullptr)) { return; }
+	InGameMenuClass = InGameMenuBPClass.Class;
 }
 
 void UPuzzlePlatformsGameInstance::Init()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Found class: %s"), *MenuClass->GetName());
+	UE_LOG(LogTemp, Warning, TEXT("Found class: %s"), *MainMenuClass->GetName());
+	UE_LOG(LogTemp, Warning, TEXT("Found class: %s"), *InGameMenuClass->GetName());
 }
 
-void UPuzzlePlatformsGameInstance::LoadMenu()
+void UPuzzlePlatformsGameInstance::LoadMainMenu()
 {
-	if (!ensure(MenuClass != nullptr)) { return; }
-	Menu = CreateWidget<UMainMenu>(this, MenuClass);
-	if (!ensure(Menu != nullptr)) { return; }
+	if (!ensure(MainMenuClass != nullptr)) { return; }
+	MainMenu = CreateWidget<UMainMenu>(this, MainMenuClass);
+	if (!ensure(MainMenu != nullptr)) { return; }
 
-	Menu->Setup();
-	Menu->SetMenuInterface(this);
+	MainMenu->Setup();
+	MainMenu->SetMenuInterface(this);
+}
+
+void UPuzzlePlatformsGameInstance::LoadInGameMenu()
+{
+	if (!ensure(InGameMenuClass != nullptr)) { return; }
+	InGameMenu = CreateWidget<UInGameMenu>(this, InGameMenuClass);
+	if (!ensure(InGameMenu != nullptr)) { return; }
+
+	InGameMenu->Setup();
+	InGameMenu->SetMenuInterface(this);
 }
 
 void UPuzzlePlatformsGameInstance::Host()
 {
-	if (Menu != nullptr)
+	if (MainMenu != nullptr)
 	{
-		Menu->TearDown();
+		MainMenu->TearDown();
 	}
 
 	UEngine* Engine = GetEngine();
@@ -49,9 +65,9 @@ void UPuzzlePlatformsGameInstance::Host()
 
 void UPuzzlePlatformsGameInstance::Join(const FString& Address)
 {
-	if (Menu != nullptr)
+	if (MainMenu != nullptr)
 	{
-		Menu->TearDown();
+		MainMenu->TearDown();
 	}
 
 	UEngine* Engine = GetEngine();

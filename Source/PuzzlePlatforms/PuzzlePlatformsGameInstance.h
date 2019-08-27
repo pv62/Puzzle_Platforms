@@ -9,6 +9,7 @@
 
 class UUserWidget;
 class UMainMenu;
+class UInGameMenu;
 
 UCLASS()
 class PUZZLEPLATFORMS_API UPuzzlePlatformsGameInstance : public UGameInstance, public IMenuInterface
@@ -21,7 +22,10 @@ public:
 	virtual void Init();
 
 	UFUNCTION(BlueprintCallable)
-	void LoadMenu();
+	void LoadMainMenu();
+
+	UFUNCTION(BlueprintCallable)
+	void LoadInGameMenu();
 
 	UFUNCTION(Exec)
 	void Host();
@@ -30,7 +34,9 @@ public:
 	void Join(const FString& Address);
 
 private:
-	TSubclassOf<UUserWidget> MenuClass;
+	TSubclassOf<UUserWidget> MainMenuClass;
+	TSubclassOf<UUserWidget> InGameMenuClass;
 
-	UMainMenu* Menu;
+	UMainMenu* MainMenu;
+	UInGameMenu* InGameMenu;
 };
