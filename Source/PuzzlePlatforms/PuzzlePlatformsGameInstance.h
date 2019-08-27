@@ -9,7 +9,6 @@
 
 class UUserWidget;
 class UMainMenu;
-class UInGameMenu;
 
 UCLASS()
 class PUZZLEPLATFORMS_API UPuzzlePlatformsGameInstance : public UGameInstance, public IMenuInterface
@@ -28,15 +27,18 @@ public:
 	void LoadInGameMenu();
 
 	UFUNCTION(Exec)
-	void Host();
+	void Host() override;
 
 	UFUNCTION(Exec)
-	void Join(const FString& Address);
+	void Join(const FString& Address) override;
+
+	virtual void BackToMainMenu() override;
+
+	void NetworkError(UWorld* World, UNetDriver* NetDriver, ENetworkFailure::Type FailureType, const FString& ErrorString);
 
 private:
 	TSubclassOf<UUserWidget> MainMenuClass;
 	TSubclassOf<UUserWidget> InGameMenuClass;
 
 	UMainMenu* MainMenu;
-	UInGameMenu* InGameMenu;
 };

@@ -4,9 +4,10 @@
 #include "PuzzlePlatformsGameInstance.h"
 #include "PlatformTrigger.h"
 #include "MenuSystem/MainMenu.h"
-#include "MenuSystem/InGameMenu.h"
+#include "MenuSystem/MenuWidget.h"
 
 #include "Engine/Engine.h"
+#include "Engine/NetDriver.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Blueprint/UserWidget.h"
 
@@ -25,6 +26,11 @@ void UPuzzlePlatformsGameInstance::Init()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Found class: %s"), *MainMenuClass->GetName());
 	UE_LOG(LogTemp, Warning, TEXT("Found class: %s"), *InGameMenuClass->GetName());
+
+	UEngine* Engine = GetEngine();
+	if (!ensure(Engine != nullptr)) return;
+	Engine->OnNetworkFailure().AddUObject(this, &UPuzzlePlatformsGameInstance::NetworkError);
+
 }
 
 void UPuzzlePlatformsGameInstance::LoadMainMenu()
@@ -40,7 +46,7 @@ void UPuzzlePlatformsGameInstance::LoadMainMenu()
 void UPuzzlePlatformsGameInstance::LoadInGameMenu()
 {
 	if (!ensure(InGameMenuClass != nullptr)) { return; }
-	InGameMenu = CreateWidget<UInGameMenu>(this, InGameMenuClass);
+	UMenuWidget* InGameMenu = CreateWidget<UMenuWidget>(this, InGameMenuClass);
 	if (!ensure(InGameMenu != nullptr)) { return; }
 
 	InGameMenu->Setup();
@@ -77,4 +83,16 @@ void UPuzzlePlatformsGameInstance::Join(const FString& Address)
 	APlayerController* PlayerController = GetFirstLocalPlayerController();
 	if (!ensure(PlayerController != nullptr)) { return; }
 	PlayerController->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
+}
+
+void UPuzzlePlatformsGameInstance::BackToMainMenu()
+{
+	APlayerController* PlayerController = GetFirstLocalPlayerController();
+	if (!ensure(PlayerController != nullptr)) { return; }
+	PlayerController->ClientTravel("/Game/MenuSystem/MainMenu", ETravelType::TRAVEL_Absolute);
+}
+
+void UPuzzlePlatformsGameInstance::NetworkError(UWorld* World, UNetDriver* NetDriver, ENetworkFailure::Type FailureType, const FString& ErrorString)
+{
+	BackToMainMenu();
 }
