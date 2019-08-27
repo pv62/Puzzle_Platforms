@@ -8,6 +8,7 @@
 #include "MainMenu.generated.h"
 
 class UButton;
+class UWidgetSwitcher;
 
 UCLASS()
 class PUZZLEPLATFORMS_API UMainMenu : public UUserWidget
@@ -27,14 +28,32 @@ protected:
 	virtual bool Initialize() override;
 
 	UPROPERTY(meta = (BindWidget))
-	UButton* Host;
+	UButton* HostButton;
 
 	UPROPERTY(meta = (BindWidget))
-	UButton* Join;
+	UButton* JoinButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* CancelJoinMenuButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UWidgetSwitcher* MenuSwitcher;
+
+	UPROPERTY(meta = (BindWidget))
+	UWidget* MainMenu;
+
+	UPROPERTY(meta = (BindWidget))
+	UWidget* JoinMenu;
 
 private:
 	UFUNCTION()
 	void HostServer();
+
+	UFUNCTION()
+	void OpenMainMenu();
+
+	UFUNCTION()
+	void OpenJoinMenu();
 
 	IMenuInterface* MenuInterface;
 };
