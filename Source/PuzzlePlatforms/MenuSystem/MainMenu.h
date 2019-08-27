@@ -31,6 +31,9 @@ protected:
 	UButton* CancelJoinMenuButton;
 
 	UPROPERTY(meta = (BindWidget))
+	UButton* QuitButton;
+
+	UPROPERTY(meta = (BindWidget))
 	UEditableTextBox* IPAddressField;
 
 	UPROPERTY(meta = (BindWidget))
@@ -54,4 +57,7 @@ private:
 
 	UFUNCTION()
 	void OpenJoinMenu();
+
+	UFUNCTION()
+	void Quit();
 };
