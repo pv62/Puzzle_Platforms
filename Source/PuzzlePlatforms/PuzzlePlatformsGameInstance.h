@@ -37,6 +37,8 @@ public:
 
 	virtual void BackToMainMenu() override;
 
+	void RefreshServerList() override;
+
 	void NetworkError(UWorld* World, UNetDriver* NetDriver, ENetworkFailure::Type FailureType, const FString& ErrorString);
 
 private:

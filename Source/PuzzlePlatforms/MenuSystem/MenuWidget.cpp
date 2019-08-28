@@ -10,7 +10,7 @@ void UMenuWidget::SetMenuInterface(IMenuInterface* MenuInterface)
 
 void UMenuWidget::Setup()
 {
-	AddToViewport();
+	this->AddToViewport();
 
 	UWorld* World = GetWorld();
 	if (!ensure(World != nullptr)) { return; }
@@ -18,7 +18,7 @@ void UMenuWidget::Setup()
 	if (!ensure(PlayerController != nullptr)) { return; }
 
 	FInputModeUIOnly InputModeData;
-	InputModeData.SetWidgetToFocus(TakeWidget());
+	InputModeData.SetWidgetToFocus(this->TakeWidget());
 	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
 	PlayerController->SetInputMode(InputModeData);
 	PlayerController->bShowMouseCursor = true;
@@ -26,7 +26,7 @@ void UMenuWidget::Setup()
 
 void UMenuWidget::TearDown()
 {
-	RemoveFromViewport();
+	this->RemoveFromViewport();
 
 	UWorld* World = GetWorld();
 	if (!ensure(World != nullptr)) { return; }
