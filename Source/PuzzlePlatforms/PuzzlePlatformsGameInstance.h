@@ -11,6 +11,7 @@
 class UUserWidget;
 class UMainMenu;
 class UNetDriver;
+class FOnlineSessionSearch;
 
 UCLASS()
 class PUZZLEPLATFORMS_API UPuzzlePlatformsGameInstance : public UGameInstance, public IMenuInterface
@@ -45,9 +46,11 @@ private:
 	UMainMenu* MainMenu;
 
 	IOnlineSessionPtr SessionInterface;
+	TSharedPtr<FOnlineSessionSearch> SessionSearch;
+
+	void CreateSession();
 
 	void OnCreateSessionComplete(FName SessionName, bool Success);
 	void OnDestroySessionComplete(FName SessionName, bool Success);
-
-	void CreateSession();
+	void OnFindSessionsComplete(bool Success);
 };
