@@ -9,6 +9,7 @@
 
 class UUserWidget;
 class UMainMenu;
+class UNetDriver;
 
 UCLASS()
 class PUZZLEPLATFORMS_API UPuzzlePlatformsGameInstance : public UGameInstance, public IMenuInterface

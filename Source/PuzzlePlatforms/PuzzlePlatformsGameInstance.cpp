@@ -10,6 +10,7 @@
 #include "Engine/NetDriver.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Blueprint/UserWidget.h"
+#include "OnlineSubsystem.h"
 
 UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitializer& ObjectInitializer)
 {
@@ -24,9 +25,17 @@ UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitiali
 
 void UPuzzlePlatformsGameInstance::Init()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Found class: %s"), *MainMenuClass->GetName());
-	UE_LOG(LogTemp, Warning, TEXT("Found class: %s"), *InGameMenuClass->GetName());
+	IOnlineSubsystem* Subsystem = IOnlineSubsystem::Get();
+	if (Subsystem != nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Found subsystem: %s"), *Subsystem->GetSubsystemName().ToString());
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Found no subsystem"));
+	}
 
+	// If Server Disconnects
 	UEngine* Engine = GetEngine();
 	if (!ensure(Engine != nullptr)) return;
 	Engine->OnNetworkFailure().AddUObject(this, &UPuzzlePlatformsGameInstance::NetworkError);
