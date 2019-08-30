@@ -6,6 +6,7 @@
 
 #include "UObject/ConstructorHelpers.h"
 #include "Components/Button.h"
+#include "Components/EditableTextBox.h"
 #include "Components/WidgetSwitcher.h"
 #include "Components/PanelWidget.h"
 #include "Components/TextBlock.h"
@@ -28,6 +29,12 @@ bool UMainMenu::Initialize()
 	if (!ensure(JoinButton != nullptr)) { return false; }
 	JoinButton->OnClicked.AddDynamic(this, &UMainMenu::JoinServer);
 
+	if (!ensure(OpenHostMenuButton != nullptr)) { return false; }
+	OpenHostMenuButton->OnClicked.AddDynamic(this, &UMainMenu::OpenHostMenu);
+
+	if (!ensure(CancelHostMenuButton != nullptr)) { return false; }
+	CancelHostMenuButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
+
 	if (!ensure(OpenJoinMenuButton != nullptr)) { return false; }
 	OpenJoinMenuButton->OnClicked.AddDynamic(this, &UMainMenu::OpenJoinMenu);
 
@@ -44,7 +51,9 @@ void UMainMenu::HostServer()
 {
 	if (MenuInterface != nullptr)
 	{ 
-		MenuInterface->Host(); 
+		if (!ensure(ServerHostName != nullptr)) { return; }
+		FString HostName = ServerHostName->GetText().ToString();
+		MenuInterface->Host(HostName);
 	}
 }
 
@@ -109,6 +118,13 @@ void UMainMenu::OpenMainMenu()
 	if (!ensure(MenuSwitcher != nullptr)) { return; }
 	if (!ensure(MainMenu != nullptr)) { return; }
 	MenuSwitcher->SetActiveWidget(MainMenu);
+}
+
+void UMainMenu::OpenHostMenu()
+{
+	if (!ensure(MenuSwitcher != nullptr)) { return; }
+	if (!ensure(HostMenu != nullptr)) { return; }
+	MenuSwitcher->SetActiveWidget(HostMenu);
 }
 
 void UMainMenu::OpenJoinMenu()

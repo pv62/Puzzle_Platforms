@@ -18,6 +18,7 @@ struct FServerData
 };
 
 class UButton;
+class UEditableTextBox;
 class UWidgetSwitcher;
 class UPanelWidget;
 class UServerRow;
@@ -44,6 +45,12 @@ protected:
 	UButton* JoinButton;
 
 	UPROPERTY(meta = (BindWidget))
+	UButton* OpenHostMenuButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* CancelHostMenuButton;
+
+	UPROPERTY(meta = (BindWidget))
 	UButton* OpenJoinMenuButton;
 	
 	UPROPERTY(meta = (BindWidget))
@@ -53,6 +60,9 @@ protected:
 	UButton* QuitButton;
 
 	UPROPERTY(meta = (BindWidget))
+	UEditableTextBox* ServerHostName;
+
+	UPROPERTY(meta = (BindWidget))
 	UPanelWidget* ServerList;
 
 	UPROPERTY(meta = (BindWidget))
@@ -60,6 +70,9 @@ protected:
 
 	UPROPERTY(meta = (BindWidget))
 	UWidget* MainMenu;
+
+	UPROPERTY(meta = (BindWidget))
+	UWidget* HostMenu;
 
 	UPROPERTY(meta = (BindWidget))
 	UWidget* JoinMenu;
@@ -75,6 +88,9 @@ private:
 
 	UFUNCTION()
 	void OpenMainMenu();
+
+	UFUNCTION()
+	void OpenHostMenu();
 
 	UFUNCTION()
 	void OpenJoinMenu();
