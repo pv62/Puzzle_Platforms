@@ -12,7 +12,7 @@
 #include "Blueprint/UserWidget.h"
 #include "OnlineSessionSettings.h"
 
-const static FName SESSION_NAME = TEXT("My Session Game");
+const static FName SESSION_NAME = TEXT("GameSession");
 const static FName SERVER_NAME_SETTINGS_KEY = TEXT("ServerName");
 
 UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitializer& ObjectInitializer)
