@@ -21,4 +21,8 @@ public:
 
 private:
 	uint32 NumberOfPlayers = 0;
+
+	FTimerHandle GaneStartTimer;
+
+	void StartGame();
 };

@@ -78,10 +78,10 @@ void UPuzzlePlatformsGameInstance::Host(FString ServerName)
 	DesiredServerName = ServerName;
 	if (SessionInterface.IsValid())
 	{
-		auto ExistingSession = SessionInterface->GetNamedSession(SESSION_NAME);
+		auto ExistingSession = SessionInterface->GetNamedSession(NAME_GameSession);
 		if (ExistingSession != nullptr)
 		{
-			SessionInterface->DestroySession(SESSION_NAME);
+			SessionInterface->DestroySession(NAME_GameSession);
 		}
 		else
 		{
@@ -95,7 +95,7 @@ void UPuzzlePlatformsGameInstance::CreateSession()
 	if (SessionInterface.IsValid())
 	{
 		FOnlineSessionSettings SessionSettings;
-		if (IOnlineSubsystem::Get()->GetSubsystemName() == "NULL")
+		if (IOnlineSubsystem::Get()->GetSubsystemName() == "NULL") //NAME_GameSession
 		{
 			SessionSettings.bIsLANMatch = true;
 		}
@@ -103,11 +103,11 @@ void UPuzzlePlatformsGameInstance::CreateSession()
 		{
 			SessionSettings.bIsLANMatch = false;
 		}
-		SessionSettings.NumPublicConnections = 2;
+		SessionSettings.NumPublicConnections = 5;
 		SessionSettings.bShouldAdvertise = true;
 		SessionSettings.bUsesPresence = true;
 		SessionSettings.Set(SERVER_NAME_SETTINGS_KEY, DesiredServerName, EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
-		SessionInterface->CreateSession(0, SESSION_NAME, SessionSettings);
+		SessionInterface->CreateSession(0, NAME_GameSession, SessionSettings);
 	}
 }
 
@@ -212,7 +212,15 @@ void UPuzzlePlatformsGameInstance::Join(uint32 Index)
 		MainMenu->TearDown();
 	}
 
-	SessionInterface->JoinSession(0, SESSION_NAME, SessionSearch->SearchResults[Index]);
+	SessionInterface->JoinSession(0, NAME_GameSession, SessionSearch->SearchResults[Index]);
+}
+
+void UPuzzlePlatformsGameInstance::StartSession()
+{
+	if (SessionInterface.IsValid())
+	{
+		SessionInterface->StartSession(NAME_GameSession);
+	}
 }
 
 void UPuzzlePlatformsGameInstance::BackToMainMenu()
