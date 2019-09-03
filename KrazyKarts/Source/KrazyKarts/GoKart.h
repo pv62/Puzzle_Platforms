@@ -27,6 +27,8 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 private:
+	FVector GetResistance();
+
 	void UpdateLocationFromVelocity(float DeltaTime);
 	void ApplyRotation(float DeltaTime);
 
@@ -44,6 +46,10 @@ private:
 	// The number of degrees per second at full control throw (degrees/s)
 	UPROPERTY(EditAnywhere)
 	float MaxDegreesPerSecond = 90;
+
+	// Higher means more drag (kg/m) (DragCoefficient = AirResistance / Speed^2)
+	UPROPERTY(EditAnywhere)
+	float DragCoefficient = 16;
 
 	FVector Velocity;
 
