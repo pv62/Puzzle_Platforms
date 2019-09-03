@@ -29,6 +29,8 @@ public:
 private:
 	void MoveForward(float Value);
 
+	void UpdateLocationFromVelocity(float DeltaTime);
+
 	// The mass of the car (in kg)
 	UPROPERTY(EditAnywhere)
 	float Mass = 1000;
