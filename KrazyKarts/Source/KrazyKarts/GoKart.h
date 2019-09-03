@@ -29,5 +29,15 @@ public:
 private:
 	void MoveForward(float Value);
 
+	// The mass of the car (in kg)
+	UPROPERTY(EditAnywhere)
+	float Mass = 1000;
+
+	// The force applied when the throttle is fully down (N)
+	UPROPERTY(EditAnywhere)
+	float MaxDrivingForce = 10000;
+
 	FVector Velocity;
+
+	float Throttle;
 };
