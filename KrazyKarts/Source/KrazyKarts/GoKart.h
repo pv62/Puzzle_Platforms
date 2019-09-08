@@ -27,6 +27,9 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 private:
+	UFUNCTION()
+	void OnRep_ReplicatedTransform();
+
 	FVector GetAirResistance();
 	FVector GetRollingResistance();
 
@@ -64,11 +67,8 @@ private:
 
 	FVector Velocity;
 
-	UPROPERTY(Replicated)
-	FVector ReplicatedLocation;
-
-	UPROPERTY(Replicated)
-	FRotator ReplicatedRotation;
+	UPROPERTY(ReplicatedUsing = OnRep_ReplicatedTransform)
+	FTransform ReplicatedTransform;
 
 	float Throttle;
 	float SteeringThrow;
