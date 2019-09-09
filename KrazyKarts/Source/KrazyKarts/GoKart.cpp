@@ -13,8 +13,8 @@ AGoKart::AGoKart()
 	PrimaryActorTick.bCanEverTick = true;
 	bReplicates = true;
 
-	MovementComponent = CreateDefaultSubobject<UGoKartMovementComponent>(TEXT("MovementComponent"));
-	MovementReplicator = CreateDefaultSubobject<UGoKartMovementReplicator>(TEXT("MovementReplicator"));
+	MovementComponent = CreateDefaultSubobject<UGoKartMovementComponent>(TEXT("Movement Component"));
+	MovementReplicator = CreateDefaultSubobject<UGoKartMovementReplicator>(TEXT("Movement Replicator"));
 }
 
 // Called when the game starts or when spawned

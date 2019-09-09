@@ -7,6 +7,8 @@
 UGoKartMovementComponent::UGoKartMovementComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
+
+	SetIsReplicated(true);
 }
 
 void UGoKartMovementComponent::BeginPlay()
