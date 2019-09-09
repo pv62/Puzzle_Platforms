@@ -73,5 +73,3 @@ void AGoKart::MoveRight(float Value)
 	if (MovementComponent == nullptr) { return; }
 	MovementComponent->SetSteeringThrow(Value);
 }
-
-//UE_LOG(LogTemp, Warning, TEXT(""));
